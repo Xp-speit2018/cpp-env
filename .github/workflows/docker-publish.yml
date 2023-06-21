@@ -51,13 +51,20 @@ jobs:
           registry: ${{ vars.DOCKER_REGISTRY }}
           username: ${{ vars.DOCKER_USER }}
           password: ${{ secrets.DOCKER_LOGIN }}
+      
+      # Action to increment a repository variable by one
+      # https://github.com/action-pack/increment
+      - name: Increment version
+        uses: action-pack/increment@v2
+        with:
+          name: 'VERSION_PATCH'
+          token: ${{ secrets.REPO }}
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        flavor: latest = auto
         with:
           images: ${{ vars.DOCKER_USER }}/${{ vars.DOCKER_IMAGE }}
 
@@ -69,7 +76,7 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: v${{vars.VERSION_MAJOR}}.${{vars.VERSION_MINOR}}.${{vars.VERSION_PATCH}}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
