@@ -76,7 +76,7 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: v${{vars.VERSION_MAJOR}}.${{vars.VERSION_MINOR}}.${{vars.VERSION_PATCH}}
+          tags: ${{ vars.DOCKER_USER }}/${{ vars.DOCKER_IMAGE }}:v${{vars.VERSION_MAJOR}}.${{vars.VERSION_MINOR}}.${{vars.VERSION_PATCH}}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
