@@ -2,7 +2,7 @@
 
 # cpp-env
 Development environment containerized by docker. Built from `codercom/code-server`.
-## environments
+## cpp environments
 - `opencv`
 - `boost`
 ## code-server extensions
