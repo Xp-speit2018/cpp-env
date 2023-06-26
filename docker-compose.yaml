@@ -2,7 +2,7 @@ version: '3'
 
 services:
   my-service:
-    image: vector64/cpp-opencv-boost:#TAG
+    image: vector64/cpp-opencv-boost:v0.1.7
     ports:
       - "8080:8080"
     volumes:

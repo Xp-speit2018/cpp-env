@@ -3,6 +3,9 @@ name: Update Docker Compose
 on:
   release:
     types: [published]
+    paths-ignore:
+      - 'README.md'
+      - 'docker-compose.yaml'
 
 jobs:
   update-compose:
