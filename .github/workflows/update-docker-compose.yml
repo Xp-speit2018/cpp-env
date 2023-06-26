@@ -7,7 +7,6 @@ on:
       - 'README.md'
       - 'docker-compose.yaml'
       - '.github/workflows/**'
-  workflow_dispatch:
 
 jobs:
   update-compose:
@@ -16,14 +15,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    
-    - name: Get git tag
-      uses: auguwu/git-tag-action@master
-      id: git-tag
 
     - name: Update Docker Compose
       run: |
-        sed "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/${{ steps.outputs.git-tag.version }}/g" docker-compose.yaml > docker-compose.updated.yaml
+        sed "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/${{ github.event.release.tag_name }}/g" docker-compose.yaml > docker-compose.updated.yaml
 
     - name: Replace docker-compose.yaml with updated file
       run: mv docker-compose.updated.yaml docker-compose.yaml
