@@ -16,16 +16,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
-    - name: Get the latest release tag
-      id: get_latest_release_tag
-      uses: peter-evans/get-latest-release-tag@v1
-      with:
-        owner: ${{ github.repository_owner }}
-        repo: ${{ github.event.repository.name }}
-    
     - name: Update Docker Compose
       run: |
-        sed "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/${{ steps.get_latest_release_tag.outputs.tag_name }}/g" docker-compose.yaml > docker-compose.updated.yaml
+        sed "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/${{ GITHUB_REF }}/g" docker-compose.yaml > docker-compose.updated.yaml
 
     - name: Replace docker-compose.yaml with updated file
       run: mv docker-compose.updated.yaml docker-compose.yaml
