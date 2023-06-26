@@ -31,5 +31,5 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git commit -a -m "update version in docker-compose"
+        git commit -a -m "github-actions[bot] update version"
         git push origin HEAD:main
