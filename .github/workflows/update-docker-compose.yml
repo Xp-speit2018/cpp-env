@@ -17,9 +17,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
+    - name: Get tag
+      id: tag
+      uses: devops-actions/action-get-tag@v1.0.1
+
     - name: Update Docker Compose
       run: |
-        sed "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/${{ env.GITHUB_REF }}/g" docker-compose.yaml > docker-compose.updated.yaml
+        sed "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/${{ steps.tag.outputs.tag }}/g" docker-compose.yaml > docker-compose.updated.yaml
 
     - name: Replace docker-compose.yaml with updated file
       run: mv docker-compose.updated.yaml docker-compose.yaml
