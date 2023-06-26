@@ -1,0 +1,24 @@
+name: Update Docker Compose
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-compose:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Get the latest release tag
+      id: get_latest_release_tag
+      uses: peter-evans/get-latest-release-tag@v1
+      with:
+        owner: ${{ github.repository_owner }}
+        repo: ${{ github.event.repository.name }}
+    
+    - name: Update Docker Compose
+      run: |
+        sed "s/#TAG/${{ steps.get_latest_release_tag.outputs.tag_name }}/g" docker-compose.template.yaml > docker-compose.yml
