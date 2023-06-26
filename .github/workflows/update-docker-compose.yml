@@ -24,4 +24,15 @@ jobs:
     
     - name: Update Docker Compose
       run: |
-        sed "s/#TAG/${{ steps.get_latest_release_tag.outputs.tag_name }}/g" docker-compose.template.yaml > docker-compose.yml
+        sed "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/${{ steps.get_latest_release_tag.outputs.tag_name }}/g" docker-compose.yaml > docker-compose.updated.yaml
+
+    - name: Replace docker-compose.yaml with updated file
+      run: mv docker-compose.updated.yaml docker-compose.yaml
+
+    - name: Commit changes to docker-compose.yaml
+      uses: test-room-7/action-update-file@v1
+      with:
+          file-path: |
+              ./docker-compose.yaml
+          commit-msg: (bot) update docker-compose.yaml
+          github-token: ${{ secrets.REPO }}
