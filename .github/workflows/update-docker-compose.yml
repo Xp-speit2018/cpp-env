@@ -32,4 +32,4 @@ jobs:
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git commit -a -m "update version in docker-compose"
-        git push
+        git push origin HEAD:main
