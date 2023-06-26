@@ -6,7 +6,7 @@ on:
     paths-ignore:
       - 'README.md'
       - 'docker-compose.yaml'
-      - '.github'
+      - '.github/workflows/**'
 
 jobs:
   update-compose:
