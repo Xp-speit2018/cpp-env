@@ -1,0 +1,12 @@
+on:
+  workflow_dispatch:
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: auguwu/git-tag-action@master
+        id: git-tag
+      - run:
+          echo "${{ steps.outputs.git-tag.version }}"
+          # "1.0.0-alpha.3"
