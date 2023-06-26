@@ -12,8 +12,6 @@ jobs:
   update-compose:
     runs-on: ubuntu-latest
 
-    
-
     steps:
     - name: Print release version
       run: 
