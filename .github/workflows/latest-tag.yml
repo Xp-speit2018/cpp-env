@@ -5,8 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: auguwu/git-tag-action@master
-        id: git-tag
+
+      - uses: bcomnes/get-git-tag@v3.0.1
+        id: tagName
+          
       - run:
-          echo "${{ steps.outputs.git-tag.version }}"
-          # "1.0.0-alpha.3"
+          echo "${{ steps.tagName.outputs.tag }}"
