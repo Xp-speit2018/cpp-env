@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  my-service:
+    image: vector64/cpp-opencv-boost:#TAG
+    ports:
+      - "8080:8080"
+    volumes:
+      - "${PWD}:/home/coder/workspace"
