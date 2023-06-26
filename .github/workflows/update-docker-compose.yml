@@ -12,7 +12,13 @@ jobs:
   update-compose:
     runs-on: ubuntu-latest
 
+    
+
     steps:
+    - name: Print release version
+      run: 
+        echo "${{ github.event.release.tag_name }}"
+
     - name: Checkout code
       uses: actions/checkout@v3
 
