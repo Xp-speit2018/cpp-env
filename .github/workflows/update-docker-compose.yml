@@ -23,13 +23,16 @@ jobs:
     - name: Update Docker Compose
       run: |
         sed "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/${{ github.event.release.tag_name }}/g" docker-compose.yaml > docker-compose.updated.yaml
+        mv docker-compose.updated.yaml docker-compose.yaml
 
-    - name: Replace docker-compose.yaml with updated file
-      run: mv docker-compose.updated.yaml docker-compose.yaml
-
-    - name: Commit changes to docker-compose.yaml
-      uses: test-room-7/action-update-file@v1
+    - name: Commit files
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -a -m "update version in docker-compose"
+    
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-          file-path: ./docker-compose.yaml
-          commit-msg: (bot) update docker-compose.yaml
-          github-token: ${{ secrets.REPO }}
+        github_token: ${{ secrets.REPO }}
+        branch: ${{ github.ref }}
