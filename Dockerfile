@@ -6,7 +6,7 @@ RUN sudo apt update && \
     sudo apt install -y libopencv-dev libboost-all-dev && \
     sudo apt install -y wget unzip cmake build-essential vim curl
 
-RUN curl https://sh.rustup.rs -sSf | sh
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 RUN code-server --install-extension ms-vscode.makefile-tools && \
     code-server --install-extension  llvm-vs-code-extensions.vscode-clangd && \
